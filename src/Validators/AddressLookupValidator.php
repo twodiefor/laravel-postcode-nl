@@ -3,7 +3,6 @@
 namespace Speelpenning\PostcodeNl\Validators;
 
 use Illuminate\Validation\Factory;
-use Illuminate\Validation\ValidationException;
 
 class AddressLookupValidator
 {
@@ -39,7 +38,7 @@ class AddressLookupValidator
         $validation = $this->validator->make($data, $this->rules);
 
         if ($validation->fails()) {
-            throw new ValidationException($validation->errors());
+            abort(422, 'ValidationException');
         }
     }
 }
