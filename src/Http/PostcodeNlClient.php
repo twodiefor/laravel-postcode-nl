@@ -6,9 +6,6 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Config\Repository;
 use Psr\Http\Message\ResponseInterface;
-use Speelpenning\PostcodeNl\Exceptions\AccountSuspended;
-use Speelpenning\PostcodeNl\Exceptions\AddressNotFound;
-use Speelpenning\PostcodeNl\Exceptions\Unauthorized;
 
 class PostcodeNlClient
 {
@@ -63,19 +60,19 @@ class PostcodeNlClient
      * Handles the Guzzle client exception.
      *
      * @param ClientException $e
-     * @throws Unauthorized
-     * @throws AccountSuspended
-     * @throws AddressNotFound
+     * @throws 401 Unauthorized
+     * @throws 403 AccountSuspended
+     * @throws 404 AddressNotFound
      */
     protected function handleClientException(ClientException $e)
     {
         switch ($e->getCode()) {
             case 401:
-                throw new Unauthorized();
+                abort(401, 'Unauthorized');
             case 403:
-                throw new AccountSuspended();
+                abort(403, 'AccountSuspended');
             case 404:
-                throw new AddressNotFound();
+                abort(404, 'AddressNotFound');
         }
     }
 }
