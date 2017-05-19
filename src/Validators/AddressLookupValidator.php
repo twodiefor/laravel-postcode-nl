@@ -2,9 +2,7 @@
 
 namespace Speelpenning\PostcodeNl\Validators;
 
-use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\Factory;
-use Illuminate\Validation\ValidationException;
 
 class AddressLookupValidator
 {
@@ -33,14 +31,14 @@ class AddressLookupValidator
      * Validates the address lookup input.
      *
      * @param array $data
-     * @throws ValidationException
+     * @throws 422 ValidationException
      */
     public function validate(array $data = [])
     {
         $validation = $this->validator->make($data, $this->rules);
 
         if ($validation->fails()) {
-            throw new ValidationException($validation, new JsonResponse($validation->errors()));
+            abort(422, 'ValidationException');
         }
     }
 }
