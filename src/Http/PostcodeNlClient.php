@@ -71,11 +71,11 @@ class PostcodeNlClient
     {
         switch ($e->getCode()) {
             case 401:
-                throw new Unauthorized();
+                abort(401, 'Unauthorized');
             case 403:
-                throw new AccountSuspended();
+                abort(403, 'AccountSuspended');
             case 404:
-                throw new AddressNotFound();
+                abort(404, 'AddressNotFound');
         }
     }
 }
