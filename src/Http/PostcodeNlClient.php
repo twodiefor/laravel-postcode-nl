@@ -72,7 +72,7 @@ class PostcodeNlClient
             case 403:
                 abort(403, 'AccountSuspended');
             case 404:
-                abort(404, 'AddressNotFound');
+                abort(204, 'AddressNotFound');
         }
     }
 }
